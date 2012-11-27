@@ -1,0 +1,35 @@
+Texas Instruments - TSC / ADC multi-functional device
+
+ti_tscadc is a multi-function device with touchscreen and ADC on chip.
+This document describes the binding for mfd device.
+
+Required properties:
+- compatible: "ti,ti-tscadc"
+- reg: Specifies the address of MFD block
+- interrupts: IRQ line connected to the main SoC
+- interrupt-parent: The parent interrupt controller
+
+Optional properties:
+- ti,hwmods: Hardware information related to TSC/ADC MFD device
+
+Example:
+
+	tscadc: tscadc@44e0d000 {
+		compatible = "ti,ti-tscadc";
+		reg = <0x44e0d000 0x1000>;
+
+		interrupt-parent = <&intc>;
+		interrupts = <16>;
+		ti,hwmods = "adc_tsc";
+
+		tsc {
+			wires = <4>;
+			x-plate-resistance = <200>;
+			steps-to-configure = <5>;
+			wire-config = <0x00 0x11 0x22 0x33>;
+		};
+
+		adc {
+			adc-channels = <4>;
+		};
+	};
